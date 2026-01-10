@@ -23,6 +23,8 @@ def bfs(adj: Dict[int, List[int]], start: int, end: int, paths_needed: int) -> L
         curr_paths = new_paths
 
     if len(final_paths) > paths_needed:
+        print("final_paths:", final_paths)
         return final_paths[:paths_needed]
 
+    print("final_paths:", final_paths)
     return final_paths
