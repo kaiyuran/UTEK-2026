@@ -3,14 +3,15 @@ from parsingFuncs import makeAdjList, makeCoods, nodeToCoord
 from calculations import Calculations
 
 adjList = st.text_area("adjList", 
-"""1: [2, 3, 4, 5, 6],
-2: [1, 3, 4, 5, 7],
-3: [1, 2, 4, 6, 8],
-4: [1, 2, 3, 5, 7],
-5: [1, 2, 4, 6],
-6: [1, 3, 5, 7],
-7: [2, 4, 6, 8],
-8: [3, 7]""")
+"""1: [2, 3]
+2: [1, 4, 5]
+3: [1, 6]
+4: [2, 7]
+5: [2, 8]
+6: [3, 9]
+7: [4]
+8: [5]
+9: [6]""")
 adjList = makeAdjList(adjList)
 
 dimensions = st.text_input("dimensions (nxm)", "10,10")
@@ -35,21 +36,30 @@ for i, coord in enumerate(botCoords):
 calc = Calculations(adjList, paths_needed=3, velocity=1.0)
 schedule = calc.schedule(drones)
 
+
+sendtoplot = []
 print(schedule)
-    
+for droid in schedule:
+    sendtoplot.append(schedule[droid][0])
+    # print(type(schedule[droid][0]))
 
 
+print("sendtoplot:", sendtoplot)
+# for line in sendtoplot:
+#     # print(line)
+#     for point in line:
+#         point = nodeToCoord(point, (int(dimensions.split(",")[0]), int(dimensions.split(",")[1])))
 
-
+# print("sendtoplot", sendtoplot)
 
 
 
 
 #TODO FINISH adding zoning
-restrictedAdjList = st.text_area("Optional restricted adjList","")
+restrictedAdjList = st.text_area("Optional restricted zone adjList","")
 
 usingRestricted = False
-restrictedBotCoords = st.text_area("Optional restricted droid coordinates","")
+restrictedBotCoords = st.text_area("Optional restricted droid zone coordinates","")
 
 
 if restrictedBotCoords != "" and restrictedAdjList != "":
@@ -57,4 +67,5 @@ if restrictedBotCoords != "" and restrictedAdjList != "":
     restrictedAdjList = makeAdjList(restrictedAdjList)
     restrictedBotCoords = makeCoods(restrictedBotCoords)
 
-
+st.subheader(r"This is the path schedule in format {droid_id: ([route], start_time)...}")
+st.write(str(schedule))
