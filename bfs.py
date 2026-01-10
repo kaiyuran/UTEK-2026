@@ -1,29 +1,28 @@
-import time
+from typing import Dict, List
 
-def bfs(AdjDict, startNode, endNode, pathsNeeded):
-    currPaths = [[startNode]] #check later
-    visitedNodes = [startNode]
-    foundPath = False
-    finalPaths = []
-    while not foundPath:
-        newPaths = []
-        for path in currPaths:
-            for node in AdjDict[path[-1]]:
-                if node == endNode:
-                    finalPaths.append(path + [node])
 
-                # elif not node in visitedNodes:
-                elif not node in path:
-                    visitedNodes.append(node)
-                    newPaths.append(path + [node])
+def bfs(adj: Dict[int, List[int]], start: int, end: int, paths_needed: int) -> List[List[int]]:
+    """Return up to `paths_needed` simple paths from start to end using BFS expansion."""
 
-        if len(finalPaths) > (pathsNeeded-1) or len(newPaths) == 0:
+    curr_paths: List[List[int]] = [[start]]
+    final_paths: List[List[int]] = []
+
+    while True:
+        new_paths: List[List[int]] = []
+        for path in curr_paths:
+            last = path[-1]
+            for node in adj.get(last, []):
+                if node == end:
+                    final_paths.append(path + [node])
+                elif node not in path:
+                    new_paths.append(path + [node])
+
+        if len(final_paths) >= paths_needed or not new_paths:
             break
 
-        currPaths = newPaths
-        # time.sleep(.5)
+        curr_paths = new_paths
 
-    if len(finalPaths) > pathsNeeded:
-        finalPaths = finalPaths[:pathsNeeded]
+    if len(final_paths) > paths_needed:
+        return final_paths[:paths_needed]
 
-    return(finalPaths)
+    return final_paths
