@@ -2,7 +2,8 @@ from typing import Dict, List
 
 
 def bfs(adj: Dict[int, List[int]], start: int, end: int, paths_needed: int) -> List[List[int]]:
-    """Return up to `paths_needed` simple paths from start to end using BFS expansion."""
+    """Return up to `paths_needed` simple paths from start to end using BFS expansion. 
+       Only the best *paths needed* number of paths are returned."""
 
     curr_paths: List[List[int]] = [[start]]
     final_paths: List[List[int]] = []
@@ -23,8 +24,6 @@ def bfs(adj: Dict[int, List[int]], start: int, end: int, paths_needed: int) -> L
         curr_paths = new_paths
 
     if len(final_paths) > paths_needed:
-        print("final_paths:", final_paths)
         return final_paths[:paths_needed]
 
-    print("final_paths:", final_paths)
     return final_paths
