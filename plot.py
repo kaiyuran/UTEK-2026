@@ -5,4 +5,5 @@ def plot(xyLists):
         x = [coord[0] for coord in xyList]
         y = [coord[1] for coord in xyList]
         plt.plot(x, y, marker='o', label=f'Droid {i+1}')
-    plt.show()
+    plt.legend()
+    return plt

@@ -1,6 +1,7 @@
 import streamlit as st
 from parsingFuncs import makeAdjList, makeCoods, nodeToCoord
 from calculations import Calculations
+from plot import plot
 
 adjList = st.text_area("adjList", 
 """1: [2, 3]
@@ -14,7 +15,7 @@ adjList = st.text_area("adjList",
 9: [6]""")
 adjList = makeAdjList(adjList)
 
-dimensions = st.text_input("dimensions (nxm)", "10,10")
+dimensions = st.text_input("dimensions (n,m)", "3,3")
 
 st.write("The current adjLists is", str(adjList))
 
@@ -45,14 +46,14 @@ for droid in schedule:
 
 
 print("sendtoplot:", sendtoplot)
-# for line in sendtoplot:
-#     # print(line)
-#     for point in line:
-#         point = nodeToCoord(point, (int(dimensions.split(",")[0]), int(dimensions.split(",")[1])))
+for lineNum in range(len(sendtoplot)):
+    # print(line)
+    for point in range(len(sendtoplot[lineNum])):
+        sendtoplot[lineNum][point] = nodeToCoord(sendtoplot[lineNum][point], (int(dimensions.split(",")[0]), int(dimensions.split(",")[1])))
 
-# print("sendtoplot", sendtoplot)
+print("sendtoplot", sendtoplot)
 
-
+st.pyplot(plot(sendtoplot))
 
 
 #TODO FINISH adding zoning

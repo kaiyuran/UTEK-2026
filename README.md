@@ -7,7 +7,7 @@ INSTALLATION INSTRCUTIONS
 
 1. Clone the repository 
 
-2. do pip install -r requirements.txt
+2. do pip install matplotlib, streamlit, numpy, streamlit, 
 
 4. run streamlit run streamLit.py to start the streamlit app
 
